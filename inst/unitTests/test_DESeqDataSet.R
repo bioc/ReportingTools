@@ -1,5 +1,7 @@
 library(DESeq2)
 library(pasilla)
+library(RUnit)
+library(ReportingTools)
 
 countData <- read.delim(system.file("extdata/pasilla_gene_counts.tsv", package = "pasilla"),
     stringsAsFactors = FALSE, row.names=1)
@@ -27,7 +29,7 @@ test_1dataframe <- function(){
 test_2coefs <- function(){
     df <- toReportDF(dds.res, resultName = "condition_treated_vs_untreated", n = 100,
         make.plots = FALSE)
-    df2 <- toReportDF(dds.res, resultName = "type_single.read_vs_paired.end", n = 100,
+    df2 <- toReportDF(dds.res, resultName = "type_single.end_vs_paired.end", n = 100,
         make.plots = FALSE)
     checkTrue(any(df$logFC != df2$logFC),
         "Results are different between selected coefficients")
@@ -68,4 +70,4 @@ test_5modifyDF <- function(){
     finish(htmlRep)    
 }
 
-
+test_2coefs()
